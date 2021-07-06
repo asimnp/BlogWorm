@@ -5,6 +5,9 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # Local
+    path('blog/', include('apps.blog.urls', namespace='blog')),
 ]
 
 if settings.DEBUG:
