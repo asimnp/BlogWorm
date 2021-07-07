@@ -36,7 +36,9 @@ DJANGO_APPS = [
     'django.contrib.staticfiles',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    'taggit',
+]
 
 LOCAL_APPS = [
     'apps.accounts.apps.AccountsConfig',
@@ -119,3 +121,6 @@ MEDIA_ROOT = 'media_production/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# django-taggit config
+TAGGIT_CASE_INSENSITIVE = True
