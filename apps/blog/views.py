@@ -3,7 +3,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.mail import send_mail
 
 from .models import Post
-from .forms import EmailPostForm
+from .forms import EmailPostForm, CommentForm
 
 
 def post_list(request):
@@ -26,7 +26,25 @@ def post_detail(request, year, month, day, slug):
                              publish__month=month,
                              publish__day=day,
                              slug=slug)
-    return render(request, 'blog/post/detail.html', {'post': post})
+    # List of active comments for this post.
+    comments = post.comments.filter(active=True)
+    new_comment = None
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.post = post
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    context = {
+        'post': post,
+        'comments': comments,
+        'new_comment': new_comment,
+        'comment_form': comment_form
+    }
+    return render(request, 'blog/post/detail.html', context)
 
 
 def post_share(request, post_id):
