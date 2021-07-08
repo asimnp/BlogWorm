@@ -9,6 +9,7 @@ psycopg2-binary = "==2.8.6"
 django-debug-toolbar = "==3.2.1"
 environs = {extras = ["django"], version = "*"}
 django-taggit = "==1.5.1"
+markdown = "==3.3.4"
 
 [dev-packages]
 
